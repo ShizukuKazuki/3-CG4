@@ -7,7 +7,7 @@
 bool Audio::Initialize()
 {
 	HRESULT result;
-
+	
 	// XAudioエンジンのインスタンスを生成
 	result = XAudio2Create(&xAudio2, 0, XAUDIO2_DEFAULT_PROCESSOR);
 	if FAILED(result) {
