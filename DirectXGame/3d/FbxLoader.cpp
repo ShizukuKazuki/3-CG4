@@ -35,19 +35,56 @@ void FbxLoader::Finalize()
     fbxManager->Destroy();
 }
 
-void FbxLoader::ParseNodeRecursive(Model* model, FbxNode* fbxNode)
+void FbxLoader::ParseNodeRecursive(Model* model, FbxNode* fbxNode, Node* parent)
 {
     //ノード名を取得
     string name = fbxNode->GetName();
     //モデルにノードを追加（Todo）
     //FBXノードの情報を解析しノードに追加（Todo）
     //FBXノードのメッシュ情報を解析（Todo）
+    
+    //モデルにノードを追加
+    model->nodes.emplace_back();
+    Node& node = model->nodes.back();
+    //ノード名を取得
+    node.name = fbxNode->GetName();
+
+    //FBXノードのローカル移動情報
+    FbxDouble3 rotaion = fbxNode->LclRotation.Get();
+    FbxDouble3 scalin = fbxNode->LclScaling.Get();
+    FbxDouble3 translation = fbxNode->LclTranslation.Get();
+
+    //形式変換して代入
+    node.rotation = { (float)rotaion[0],(float)rotaion[1],(float)rotaion[2],0.0f };
+    //回転角をDegree（度）からラジアンに変換
+    node.rotation.m128_f32[0] = XMConvertToRadians(node.rotation.m128_f32[0]);
+    node.rotation.m128_f32[1] = XMConvertToRadians(node.rotation.m128_f32[1]);
+    node.rotation.m128_f32[2] = XMConvertToRadians(node.rotation.m128_f32[2]);
+
+    //スケール、回転、平行移動行列の計算
+    XMMATRIX matScling, matRotation, matTranslation;
+    matScling = XMMatrixScalingFromVector(node.scaling);
+    matRotation = XMMatrixRotationRollPitchYawFromVector(node.rotation);
+    matTranslation = XMMatrixTranslationFromVector(node.translation);
+
+    //ローカル変形行列の計算
+    node.transform = XMMatrixIdentity();
+
+    //グローバル変形行列の計算
+    node.glodalTransform = node.transform;
+    if (parent)
+    {
+        node.parent = parent;
+        //親の変形を計算
+        node.glodalTransform *= parent->glodalTransform;
+    }
 
     //子ノードに対して再起呼び出し
     for (int i = 0; i < fbxNode->GetChildCount(); i++)
     {
-        ParseNodeRecursive(model, fbxNode->GetChild(i));
+        ParseNodeRecursive(model, fbxNode->GetChild(i),&node);
     }
+
 }
 
 void FbxLoader::LoadModelFromFile(const string& modelName)
@@ -75,6 +112,9 @@ void FbxLoader::LoadModelFromFile(const string& modelName)
     //モデル生成
     Model* model = new Model();
     model->name = modelName;
+    //FBXノードの数を取得
+    int nodeCount = fbxScene->GetNodeCount();
+    model->nodes.reserve(nodeCount);
     //ルートノードから順に解析しモデルに流し込む
     ParseNodeRecursive(model, fbxScene->GetRootNode());
     //FBXシーン解放

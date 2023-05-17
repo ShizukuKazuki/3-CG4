@@ -23,7 +23,7 @@ public:
 
 	void Finalize();
 
-	void ParseNodeRecursive(Model* model, FbxNode* fbxNode);
+	void ParseNodeRecursive(Model* model, FbxNode* fbxNode,Node*parent = nullptr);
 private:
 	// privateなコンストラクタ（シングルトンパターン）
 	FbxLoader() = default;
