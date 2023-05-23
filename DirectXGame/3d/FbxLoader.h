@@ -24,6 +24,22 @@ public:
 	void Finalize();
 
 	void ParseNodeRecursive(Model* model, FbxNode* fbxNode,Node*parent = nullptr);
+	//メッシュ読み取り
+	void ParseMesh(Model* model, FbxNode* fbxNode);
+	//頂点座標読み取り
+	void ParseMeshVertices(Model* model, FbxMesh* fbxMesh);
+	//面情報読み取り
+	void ParseMeshFaces(Model* model, FbxMesh* fbxNode);
+	//マテリアル読み取り
+	void ParseMaterial(Model* model, FbxNode* fbxNode);
+	//テクスチャ読み込み
+	void LoadTexture(Model* model, const std::string& fullpath);
+	
+	//ディレクトリを含んだファイルパスからファイル名を抽出する
+	std::string ExtractFileName(const std::string& path);
+
+	
+
 private:
 	// privateなコンストラクタ（シングルトンパターン）
 	FbxLoader() = default;
@@ -42,6 +58,8 @@ private:
 
 	using string = std::string;
 
+	//テクスチャがない場合の標準テクスチャ名
+	static const string defaultTextureFileName;
 
 public:	//定数
 		//モデル格納ルートパス
