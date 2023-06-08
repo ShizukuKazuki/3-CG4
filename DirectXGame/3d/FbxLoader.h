@@ -38,8 +38,6 @@ public:
 	//ディレクトリを含んだファイルパスからファイル名を抽出する
 	std::string ExtractFileName(const std::string& path);
 
-	
-
 private:
 	// privateなコンストラクタ（シングルトンパターン）
 	FbxLoader() = default;

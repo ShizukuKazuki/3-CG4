@@ -175,7 +175,7 @@ void FbxLoader::ParseMeshFaces(Model* model, FbxMesh* fbxMesh)
             //頂点法線読み込み
             Model::VertexPosNormalUv& vertex = vertices[index];
             FbxVector4 noraml;
-            if (fbxMesh->GetPolygonVertexNormal(i, j, noraml));
+            if (fbxMesh->GetPolygonVertexNormal(i, j, noraml))
             {
                 vertex.normal.x = (float)noraml[0];
                 vertex.normal.y = (float)noraml[1];
@@ -275,7 +275,7 @@ void FbxLoader::LoadTexture(Model* model, const std::string& fullpath)
 {
     HRESULT result = S_FALSE;
     //WICテクスチャのロード
-    TexMetadata& metadata = model->metdata;
+    TexMetadata& metadata = model->metadata;
     ScratchImage& scratchImg = model->scratchImg;
     //ユニコード文字列に変換
     wchar_t wfiepath[128];
@@ -333,6 +333,7 @@ void FbxLoader::LoadModelFromFile(const string& modelName)
     //モデル生成
     Model* model = new Model();
     model->name = modelName;
+
     //FBXノードの数を取得
     int nodeCount = fbxScene->GetNodeCount();
     model->nodes.reserve(nodeCount);
@@ -340,5 +341,6 @@ void FbxLoader::LoadModelFromFile(const string& modelName)
     ParseNodeRecursive(model, fbxScene->GetRootNode());
     //FBXシーン解放
     fbxScene->Destroy();
-
+      //バッファ生成
+    model->CreateBuffers(device);
 }
