@@ -3,6 +3,8 @@
 #include <sstream>
 #include <iomanip>
 #include "FbxLoader.h"
+
+#include "Object3d.h"
 using namespace DirectX;
 
 GameScene::GameScene()
@@ -25,6 +27,11 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input, Audio * audio)
 	this->dxCommon = dxCommon;
 	this->input = input;
 	this->audio = audio;
+
+	//デバイスをセット
+	Object3d::SetDevice(dxCommon->GetDevice());
+	//カメラをセット
+	Object3d::SetCamera(camera);
 
 	// カメラ生成
 	camera = new DebugCamera(WinApp::window_width, WinApp::window_height, input);
