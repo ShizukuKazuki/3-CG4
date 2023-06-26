@@ -63,5 +63,6 @@ public:	//定数
 		//モデル格納ルートパス
 	static const string baseDirecotory;
 	//ファイルからFBXモデル読込
-	void LoadModelFromFile(const string& modelName);
+	//void LoadModelFromFile(const string& modelName);
+	Model* LoadModelFromFile(const string& modelName);
 };

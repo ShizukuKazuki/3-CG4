@@ -308,7 +308,8 @@ std::string FbxLoader::ExtractFileName(const std::string& path)
     return path;
 }
 
-void FbxLoader::LoadModelFromFile(const string& modelName)
+//void FbxLoader::LoadModelFromFile(const string& modelName)
+Model* FbxLoader::LoadModelFromFile(const string& modelName)
 {
     //モデルと同じ名前のファルダから読み込む
     const string deirectoryPath = baseDirecotory
@@ -343,4 +344,6 @@ void FbxLoader::LoadModelFromFile(const string& modelName)
     fbxScene->Destroy();
       //バッファ生成
     model->CreateBuffers(device);
+
+    return model;
 }

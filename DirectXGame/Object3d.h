@@ -21,6 +21,18 @@ private:	//エイリアス
 	using XMFOLAT4 = DirectX::XMFLOAT4;
 	using XMMATRIX = DirectX::XMMATRIX;
 
+	//ローカルスケール
+	XMFLOAT3 scale = { 1,1,1 };
+	//xyz軸回りのローカル回転角
+	XMFLOAT3 rotation = { 0,0,0 };
+	//ローカル座標
+	XMFLOAT3 position = { 0,0,0 };
+	//ローカルワールド座標行列
+	XMMATRIX matWorld;
+	//モデル
+	Model* model = nullptr;
+
+
 public: //静的メンバ関数
 	//setter
 	static void SetDevice(ID3D12Device* device) { Object3d::device = device; }
@@ -46,6 +58,12 @@ public: //サブクラス
 	};
 public: //メンバ関数
 	void Initialize();
+	//毎フレーム処理
+	void Updata();
+	//モデルのセット
+	void SetModel(Model* model) { this->model = model;}
+	//描画
+	void Draw(ID3D12GraphicsCommandList* cmdList);
 protected: //メンバ変数
 	//定数バッファ
 	ComPtr<ID3D12Resource> constBuffTransform;

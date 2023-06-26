@@ -13,6 +13,8 @@
 
 #include <vector>
 
+#include"Object3d.h"
+
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -57,7 +59,6 @@ public: // メンバ関数
 	/// 描画
 	/// </summary>
 	void Draw();
-
 private: // メンバ変数
 	DirectXCommon* dxCommon = nullptr;
 	Input* input = nullptr;
@@ -72,5 +73,8 @@ private: // メンバ変数
 	ParticleManager* particleMan = nullptr;
 
 	LightGroup* lightGroup = nullptr;
+
+	Model* model1 = nullptr;
+	Object3d* object1 = nullptr;
 };
 
