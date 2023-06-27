@@ -5,38 +5,67 @@
 #include <d3d12.h>
 #include <d3dx12.h>
 
-#include<string>
-#include "Model.h"
+#include <string>
+
+#include"Model.h"
+
 class FbxLoader
 {
+private: // エイリアス
+	using string = std::string;
+
+
+public: //定数
+	// モデル格納ルートパス
+	static const string baseDirectory;
+
+	// テクスチャがない場合の標準テクスチャファイル名
+	static const string defaultTextureFileName;
+
 public:
 	/// <summary>
 	/// シングルトンインスタンスの取得
 	/// </summary>
 	/// <returns>インスタンス</returns>
-	 /// <summary>
+	static FbxLoader* GetInstance();
+	/// <summary>
 	/// 初期化
 	/// </summary>
-	static FbxLoader* GetInstance();
-
 	void Initialize(ID3D12Device* device);
-
+	/// <summary>
+	/// 後始末
+	/// </summary>
 	void Finalize();
-
-	void ParseNodeRecursive(Model* model, FbxNode* fbxNode,Node*parent = nullptr);
-	//メッシュ読み取り
+	/// <summary>
+	/// ファイルからFBXモデル読込
+	/// </summary>
+	/// <param name="modelName">モデル名</param>
+	Model* LoadModelFromFile(const string& modelName);
+	/// <summary>
+	/// 再帰的にノート構成を解析 
+	/// </summary>
+	/// <param name="model">読み込み先モデルオブジェクト</param>
+	/// <param name="fbxNode">解析対象のノード</paeam>
+	void ParseNodeRecursive(Model* model, FbxNode* fbxNode, Node* parent = nullptr);
+	/// <summary>
+	/// メッシュ読み込み
+	/// </summary>
+	/// <param name="model">読み込み先モデルオブジェクト</param>
+	/// <param name="fbxNode">解析対象のノード</param>
 	void ParseMesh(Model* model, FbxNode* fbxNode);
-	//頂点座標読み取り
+
+	// 頂点座標読み取り
 	void ParseMeshVertices(Model* model, FbxMesh* fbxMesh);
-	//面情報読み取り
-	void ParseMeshFaces(Model* model, FbxMesh* fbxNode);
-	//マテリアル読み取り
+	// 面情報読み取り
+	void ParseMeshFaces(Model* model, FbxMesh* fbxMesh);
+	// マテリアル読み取り
 	void ParseMaterial(Model* model, FbxNode* fbxNode);
-	//テクスチャ読み込み
+	// テクスチャ読み取り
 	void LoadTexture(Model* model, const std::string& fullpath);
-	
-	//ディレクトリを含んだファイルパスからファイル名を抽出する
+
+	// ディレクトリを含んだファイルパスからファイル名を抽出する
 	std::string ExtractFileName(const std::string& path);
+
 
 private:
 	// privateなコンストラクタ（シングルトンパターン）
@@ -47,22 +76,13 @@ private:
 	FbxLoader(const FbxLoader& obj) = delete;
 	// コピー代入演算子を禁止（シングルトンパターン）
 	void operator=(const FbxLoader& obj) = delete;
-	//D3D12デバイス
+	// D3D12デバイス
 	ID3D12Device* device = nullptr;
-	//FBXマネージャー
+	// FBXマネジャー
 	FbxManager* fbxManager = nullptr;
-	//FBXインポーター
-	FbxImporter* fbxInporter = nullptr;
+	// FBXインポータ
+	FbxImporter* fbxImporter = nullptr;
 
-	using string = std::string;
 
-	//テクスチャがない場合の標準テクスチャ名
-	static const string defaultTextureFileName;
 
-public:	//定数
-		//モデル格納ルートパス
-	static const string baseDirecotory;
-	//ファイルからFBXモデル読込
-	//void LoadModelFromFile(const string& modelName);
-	Model* LoadModelFromFile(const string& modelName);
 };
