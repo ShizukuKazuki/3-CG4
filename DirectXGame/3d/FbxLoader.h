@@ -25,29 +25,16 @@ public:
 
 	/// シングルトンインスタンスの取得
 	static FbxLoader* GetInstance();
-	/// <summary>
 	/// 初期化
-	/// </summary>
 	void Initialize(ID3D12Device* device);
-	/// <summary>
-	/// 後始末
-	/// </summary>
+	// 後始末
 	void Finalize();
-	/// <summary>
-	/// ファイルからFBXモデル読込
-	/// </summary>
-	/// <param name="modelName">モデル名</param>
+	// ファイルからFBXモデル読込
 	Model* LoadModelFromFile(const string& modelName);
-	/// <summary>
-	/// 再帰的にノート構成を解析 
-	/// </summary>
-	/// <param name="model">読み込み先モデルオブジェクト</param>
-	/// <param name="fbxNode">解析対象のノード</paeam>
+	// 再帰的にノート構成を解析 
 	void ParseNodeRecursive
 	(Model* model, FbxNode* fbxNode, Node* parent = nullptr);
-	/// <summary>
-	/// メッシュ読み込み
-	/// </summary>
+	//メッシュ読み込み
 	void ParseMesh(Model* model, FbxNode* fbxNode);
 
 	// 頂点座標読み取り
@@ -58,6 +45,11 @@ public:
 	void ParseMaterial(Model* model, FbxNode* fbxNode);
 	// テクスチャ読み取り
 	void LoadTexture(Model* model, const std::string& fullpath);
+	//スキニング情報を読み取り
+	void ParseSkin(Model* model, FbxMesh* fbxMesh);
+	//FBXの行列をXMMATRIXに変換
+	static void ConvertMatrixFromFbx(DirectX::XMMATRIX* dst, const FbxAMatrix& src);
+
 
 	// ディレクトリを含んだファイルパスからファイル名を抽出する
 	std::string ExtractFileName(const std::string& path);

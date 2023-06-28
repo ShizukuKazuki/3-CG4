@@ -1,6 +1,11 @@
 #include "Model.h"
 
 
+Model::~Model()
+{
+	//FBXシーンの解放
+	fbxScene->Destroy();
+}
 
 void Model::CreateBuffers(ID3D12Device* device)
 {
@@ -8,7 +13,7 @@ void Model::CreateBuffers(ID3D12Device* device)
 
 	// 頂点データ全体のサイズ
 	UINT sizeVB =
-		static_cast<UINT>(sizeof(VertexPosNormalUv) *
+		static_cast<UINT>(sizeof(VertexPosNormalUvSkin) *
 			vertices.size());
 
 	// 頂点バッファの設定
@@ -35,7 +40,7 @@ void Model::CreateBuffers(ID3D12Device* device)
 		IID_PPV_ARGS(&vertBuff));
 
 	// 頂点バッファへのデータ転送
-	VertexPosNormalUv* vertMap = nullptr;
+	VertexPosNormalUvSkin* vertMap = nullptr;
 	result = vertBuff->Map(0, nullptr, (void**)&vertMap);
 	if (SUCCEEDED(result)) {
 		std::copy(vertices.begin(), vertices.end(), vertMap);
@@ -143,8 +148,3 @@ void Model::Draw(ID3D12GraphicsCommandList* cmdList)
 }
 
 
-//Model::~Model()
-//{
-//	// FBXシーンの解放
-//	fbxScene->Destroy();
-//}
