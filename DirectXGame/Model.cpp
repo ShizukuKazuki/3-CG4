@@ -138,7 +138,8 @@ void Model::Draw(ID3D12GraphicsCommandList* cmdList)
 		descHeapSRV->GetGPUDescriptorHandleForHeapStart());
 
 	// •`‰æƒRƒ}ƒ“ƒh
-	cmdList->DrawIndexedInstanced((UINT)indices.size(), 1, 0, 0, 0);
+	cmdList->DrawIndexedInstanced
+	((UINT)indices.size(), 1, 0, 0, 0);
 }
 
 

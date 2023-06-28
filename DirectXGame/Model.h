@@ -54,14 +54,6 @@ public:
 		DirectX::XMFLOAT3 uv;
 	};
 
-	// アンビエント係数
-	DirectX::XMFLOAT3 ambient = { 1,1,1 };
-	// ディフューズ係数
-	DirectX::XMFLOAT3 diffuse = { 1,1,1 };
-	// テクスチャメタデータ
-	DirectX::TexMetadata metadata = {};
-	// スクラッチイメージ
-	DirectX::ScratchImage scratchImg = {};
 
 	// バッファ生成
 	void CreateBuffers(ID3D12Device* device);
@@ -71,6 +63,15 @@ public:
 
 	// モデルの変形行列取得
 	const XMMATRIX& GetModelTransform() { return meshNode->globalTransform; }
+
+	// アンビエント係数
+	DirectX::XMFLOAT3 ambient = { 1,1,1 };
+	// ディフューズ係数
+	DirectX::XMFLOAT3 diffuse = { 1,1,1 };
+	// テクスチャメタデータ
+	DirectX::TexMetadata metadata = {};
+	// スクラッチイメージ
+	DirectX::ScratchImage scratchImg = {};
 
 private:
 	// モデル名
@@ -97,7 +98,5 @@ private:
 	D3D12_INDEX_BUFFER_VIEW ibView = {};
 	// SRV用デスクリプタヒープ
 	ComPtr<ID3D12DescriptorHeap> descHeapSRV;
-
-
 };
 

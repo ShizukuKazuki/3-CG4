@@ -14,7 +14,6 @@ class FbxLoader
 private: // エイリアス
 	using string = std::string;
 
-
 public: //定数
 	// モデル格納ルートパス
 	static const string baseDirectory;
@@ -23,10 +22,8 @@ public: //定数
 	static const string defaultTextureFileName;
 
 public:
-	/// <summary>
+
 	/// シングルトンインスタンスの取得
-	/// </summary>
-	/// <returns>インスタンス</returns>
 	static FbxLoader* GetInstance();
 	/// <summary>
 	/// 初期化
@@ -46,12 +43,11 @@ public:
 	/// </summary>
 	/// <param name="model">読み込み先モデルオブジェクト</param>
 	/// <param name="fbxNode">解析対象のノード</paeam>
-	void ParseNodeRecursive(Model* model, FbxNode* fbxNode, Node* parent = nullptr);
+	void ParseNodeRecursive
+	(Model* model, FbxNode* fbxNode, Node* parent = nullptr);
 	/// <summary>
 	/// メッシュ読み込み
 	/// </summary>
-	/// <param name="model">読み込み先モデルオブジェクト</param>
-	/// <param name="fbxNode">解析対象のノード</param>
 	void ParseMesh(Model* model, FbxNode* fbxNode);
 
 	// 頂点座標読み取り
@@ -65,7 +61,6 @@ public:
 
 	// ディレクトリを含んだファイルパスからファイル名を抽出する
 	std::string ExtractFileName(const std::string& path);
-
 
 private:
 	// privateなコンストラクタ（シングルトンパターン）
@@ -82,7 +77,4 @@ private:
 	FbxManager* fbxManager = nullptr;
 	// FBXインポータ
 	FbxImporter* fbxImporter = nullptr;
-
-
-
 };

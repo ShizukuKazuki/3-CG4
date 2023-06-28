@@ -167,7 +167,6 @@ void FbxLoader::ParseMeshVertices(Model* model, FbxMesh* fbxMesh)
         vertex.pos.y = (float)pCoord[i][1];
         vertex.pos.z = (float)pCoord[i][2];
     }
-
 }
 
 void FbxLoader::ParseMeshFaces(Model* model, FbxMesh* fbxMesh)
@@ -201,8 +200,8 @@ void FbxLoader::ParseMeshFaces(Model* model, FbxMesh* fbxMesh)
             FbxVector4 normal;
             if (fbxMesh->GetPolygonVertexNormal(i, j, normal)) {
                 vertex.normal.x = (float)normal[0];
-                vertex.normal.y = (float)normal[2];
-                vertex.normal.z = (float)normal[3];
+                vertex.normal.y = (float)normal[1];
+                vertex.normal.z = (float)normal[2];
             }
             // テクスチャUV読み込み
             if (textureUVCount > 0) {
@@ -231,11 +230,8 @@ void FbxLoader::ParseMeshFaces(Model* model, FbxMesh* fbxMesh)
                 indices.push_back(index3);
                 indices.push_back(index0);
             }
-
         }
-
     }
-
 }
 
 void FbxLoader::ParseMaterial(Model* model, FbxNode* fbxNode)
