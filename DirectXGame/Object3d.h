@@ -52,31 +52,25 @@ public:// サブクラス
 	};
 
 public: // メンバ関数
-	/// <summary>
-	/// 初期化
-	/// </summary>
+
+	// 初期化
 	void Initialize();
 
-	/// <summary>
-	/// 毎フレーム処理
-	/// </summary>
+	//毎フレーム処理
 	void Update();
 
-	/// <summary>
-	/// 描画
-	/// </summary>
+	//描画
 	void Draw(ID3D12GraphicsCommandList* cmdList);
 
-	/// <summary>
-	/// モデルのセット
-	/// </summary>
+	//モデルのセット
 	void SetModel(Model* model) { this->model = model; }
 
 
 protected:// メンバ変数
 	// 定数バッファ
 	ComPtr<ID3D12Resource> constBuffTransform;
-
+	//定数バッファ（スキン）
+	ComPtr<ID3D12Resource> constBuffSkin;
 	// ローカルスケール
 	XMFLOAT3 scale = { 1,1,1 };
 	// X,Y,Z軸周りのローカル回転角 
@@ -88,6 +82,13 @@ protected:// メンバ変数
 	// モデル
 	Model* model = nullptr;
 
+public: //定数
+	//ボーンの最大数
+	static const int MAX_BONES = 32;
 
+	//定数バッファ用データ構造体（スキニング）
+	struct ConstBufferDataSkin
+	{
+		XMMATRIX bones[MAX_BONES];
+	};
 };
-

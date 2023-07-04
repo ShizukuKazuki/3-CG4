@@ -78,27 +78,16 @@ public:
 
 	// バッファ生成
 	void CreateBuffers(ID3D12Device* device);
-
 	// 描画
 	void Draw(ID3D12GraphicsCommandList* cmdList);
-
 	// モデルの変形行列取得
 	const XMMATRIX& GetModelTransform() { return meshNode->globalTransform; }
-
-	// アンビエント係数
-	DirectX::XMFLOAT3 ambient = { 1,1,1 };
-	// ディフューズ係数
-	DirectX::XMFLOAT3 diffuse = { 1,1,1 };
-	// テクスチャメタデータ
-	DirectX::TexMetadata metadata = {};
-	// スクラッチイメージ
-	DirectX::ScratchImage scratchImg = {};
-
+	//getter
+	std::vector<Bone>& GetBones() { return bones; }
 	//FBXシーン
 	FbxScene* fbxScene = nullptr;
 	//getter
 	FbxScene* GetFbxScene() { return fbxScene; }
-
 	//デストラクタ
 	~Model();
 
@@ -116,9 +105,15 @@ private:
 	std::vector<unsigned short> indices;
 	//ボーン配列
 	std::vector<Bone> bones;
-	//getter
-	std::vector<Bone>& GetBones() { return bones; }
-
+	
+	// アンビエント係数
+	DirectX::XMFLOAT3 ambient = { 1,1,1 };
+	// ディフューズ係数
+	DirectX::XMFLOAT3 diffuse = { 1,1,1 };
+	// テクスチャメタデータ
+	DirectX::TexMetadata metadata = {};
+	// スクラッチイメージ
+	DirectX::ScratchImage scratchImg = {};
 
 	// 頂点バッファ
 	ComPtr<ID3D12Resource> vertBuff;
@@ -132,7 +127,5 @@ private:
 	D3D12_INDEX_BUFFER_VIEW ibView = {};
 	// SRV用デスクリプタヒープ
 	ComPtr<ID3D12DescriptorHeap> descHeapSRV;
-
-	
 };
 

@@ -15,9 +15,7 @@
 
 #include"Object3d.h"
 
-/// <summary>
-/// ゲームシーン
-/// </summary>
+//ゲームシーン
 class GameScene
 {
 private: // エイリアス
@@ -35,29 +33,20 @@ private: // 静的メンバ変数
 
 public: // メンバ関数
 
-	/// <summary>
-	/// コンストクラタ
-	/// </summary>
+	// コンストクラタ
 	GameScene();
 
-	/// <summary>
-	/// デストラクタ
-	/// </summary>
+	// デストラクタ
 	~GameScene();
 
-	/// <summary>
-	/// 初期化
-	/// </summary>
+	// 初期化
 	void Initialize(DirectXCommon* dxCommon, Input* input, Audio* audio);
 
-	/// <summary>
-	/// 毎フレーム処理
-	/// </summary>
+	// 毎フレーム処理
 	void Update();
 
-	/// <summary>
-	/// 描画
-	/// </summary>
+
+	// 描画
 	void Draw();
 private: // メンバ変数
 	DirectXCommon* dxCommon = nullptr;
@@ -65,9 +54,7 @@ private: // メンバ変数
 	Audio* audio = nullptr;
 	DebugText* debugText;	
 
-	/// <summary>
-	/// ゲームシーン用
-	/// </summary>
+	//ゲームシーン用
 	DebugCamera* camera = nullptr;
 	Sprite* spriteBG = nullptr;
 	ParticleManager* particleMan = nullptr;

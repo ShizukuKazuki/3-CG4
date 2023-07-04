@@ -379,15 +379,15 @@ void FbxLoader::ParseSkin(Model* model, FbxMesh* fbxMesh)
         //頂点配列書き換え用処理
         auto& vertices = model->vertices;
         //各頂点について処理
-        for (int i = 0; i < vertices.size(); i++);
+        for (int i = 0; i < vertices.size(); i++)
         {
             //各頂点について処理
             auto& weightList = weightLists[i];
             //大小比較用のラムダ式を指定して降順のソート
             weightList.sort(
-                [](auto const& lhs, auto const& rhs) {
-
-                    retrun lhs.weight > rhs.weigh;
+                [](auto const& lhs, auto const& rhs)
+                {
+                    return lhs.weight > rhs.weight;
                 });
 
             int weightArrayIndex = 0;
@@ -413,7 +413,6 @@ void FbxLoader::ParseSkin(Model* model, FbxMesh* fbxMesh)
                 }
             }
         }
-
     }
 }
 
