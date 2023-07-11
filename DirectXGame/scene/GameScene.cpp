@@ -26,7 +26,7 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input, Audio * audio)
 	assert(dxCommon);
 	assert(input);
 	assert(audio);
-
+	
 	this->dxCommon = dxCommon;
 	this->input = input;
 	this->audio = audio;
@@ -68,8 +68,9 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input, Audio * audio)
 	lightGroup = LightGroup::Create();
 
 	// カメラ注視点をセット
-	camera->SetTarget({0, 20, 0});
-	camera->SetDistance(100.0f);
+	camera->SetTarget({0, 2.5f, 0});
+	camera->SetDistance(8.0f);
+	
 
 	//モデル名を指定してファイル読み込み
 	/*FbxLoader::GetInstance()->LoadModelFromFile
@@ -80,6 +81,7 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input, Audio * audio)
 	object1 = new Object3d;
 	object1->Initialize();
 	object1->SetModel(model1);
+	object1->PlayAnimetion();
 }
 
 void GameScene::Update()

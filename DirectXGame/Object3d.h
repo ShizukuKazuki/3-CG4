@@ -65,6 +65,8 @@ public: // メンバ関数
 	//モデルのセット
 	void SetModel(Model* model) { this->model = model; }
 
+	//アニメーション開始
+	void PlayAnimetion();
 
 protected:// メンバ変数
 	// 定数バッファ
@@ -79,7 +81,7 @@ protected:// メンバ変数
 	XMFLOAT3 position = { 0,0,0 };
 	// ローカルワールド変換行列
 	XMMATRIX matWorld;
-	// モデル
+	 //モデル
 	Model* model = nullptr;
 
 public: //定数
@@ -91,4 +93,15 @@ public: //定数
 	{
 		XMMATRIX bones[MAX_BONES];
 	};
+
+	//1フレームの時間
+	FbxTime frameTime;
+	//アニメーション開始時間
+	FbxTime startTime;
+	//アニメーション終了時間
+	FbxTime endTime;
+	//現在時間（アニメーション）
+	FbxTime currentTime;
+	//アニメーション再生中
+	bool isPlay = false;
 };
