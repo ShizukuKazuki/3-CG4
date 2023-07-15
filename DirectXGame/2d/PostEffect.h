@@ -15,6 +15,8 @@ public:
     void PreDrawScene(ID3D12GraphicsCommandList* cmdList);
     //シーン描画後処理
     void PostDrawScene(ID3D12GraphicsCommandList* cmdList);
+    //パイプライ生成
+    void CreateGraphicsPipelineState();
 protected:  // メンバ変数
     // テクスチャバッファ
     ComPtr<ID3D12Resource> texBuff;
@@ -26,6 +28,9 @@ protected:  // メンバ変数
     ComPtr<ID3D12DescriptorHeap>descHeapRTV;
     // DSV用デスクリプタヒープ
     ComPtr<ID3D12DescriptorHeap>descHeapDSV;
+    //グラフィックパイプライン
+    ComPtr<ID3D12PipelineState> pipelineState;
+    ComPtr<ID3D12RootSignature> rootSignature;
 
 protected: // 静的メンバ変数
     // 画面クリアカラー
