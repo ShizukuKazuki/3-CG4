@@ -19,7 +19,7 @@ public:
     void CreateGraphicsPipelineState();
 protected:  // メンバ変数
     // テクスチャバッファ
-    ComPtr<ID3D12Resource> texBuff;
+    ComPtr<ID3D12Resource> texBuff[2];
     // SRV用デスクリプタヒープ
     ComPtr<ID3D12DescriptorHeap>descHeapSRV;
     // 深度バッファ
