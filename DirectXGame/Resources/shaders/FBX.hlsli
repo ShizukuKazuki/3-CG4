@@ -23,11 +23,7 @@ struct VSOutput
 	float2 uv	: TEXCOORD;		//uv’l
 };
 
-struct PSOutput
-{
-    float4 target0 : SV_TARGET0;
-    float4 target1 : SV_TARGET1;
-};
+
 
 //ƒ{[ƒ“‚ÌÅ‘å”
 static const int MAX_BONES = 32;
